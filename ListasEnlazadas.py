@@ -9,22 +9,48 @@ class ListEnlazada:
         
     def Insertar_Nodo_al_Inicio(self, numero):
         nuevo_nodo = Nodo(numero)
-        
         nuevo_nodo.siguiente = self.cabeza 
-       
         self.cabeza = nuevo_nodo
         
     def Insertar_Nodo_al_Final(self, numero):
         nuevo_nodo = Nodo(numero)
-        if(self.cabeza == None):
+        if self.cabeza == None:
             self.cabeza = nuevo_nodo
             return
 
         actual = self.cabeza
-        while(actual.siguiente):
+        while actual.siguiente:
             actual = actual.siguiente
 
         actual.siguiente = nuevo_nodo
+    
+    def Eliminar_Nodo_al_Inicio(self):
+        # Si la lista está vacía, no hace nada
+        if self.cabeza == None:
+            return
+        
+        #Movemos la cabeza al siguiente nodo
+        self.cabeza = self.cabeza.siguiente
+        
+    def Eliminar_Nodo_al_Final(self):
+        # Si la lista está vacía, no hace nada
+        if self.cabeza == None:
+            return
+        
+        # Si solo hay un nodo, vaciamos la lista
+        if self.cabeza.siguiente == None:
+            self.cabeza = None
+            return
+            
+        # Recorremos hasta llegar al PENÚLTIMO nodo
+        actual = self.cabeza
+        while actual.siguiente.siguiente:
+            actual = actual.siguiente
+            
+        # Desconectamos el último nodo
+        actual.siguiente = None
+
+    # ----------------------
 
     def imprimir_lista_enlazada(self):
         actual = self.cabeza
@@ -33,10 +59,21 @@ class ListEnlazada:
             actual = actual.siguiente
         print("none") 
 
+
+# Pruebas del código
 Mi_lista = ListEnlazada()
 
 Mi_lista.Insertar_Nodo_al_Inicio(2)
 Mi_lista.Insertar_Nodo_al_Inicio(1)
 Mi_lista.Insertar_Nodo_al_Final(4)
 
+print("Lista original:")
+Mi_lista.imprimir_lista_enlazada()
+
+Mi_lista.Eliminar_Nodo_al_Inicio()
+print("\nDespués de eliminar al inicio:")
+Mi_lista.imprimir_lista_enlazada()
+
+Mi_lista.Eliminar_Nodo_al_Final()
+print("\nDespués de eliminar al final:")
 Mi_lista.imprimir_lista_enlazada()
